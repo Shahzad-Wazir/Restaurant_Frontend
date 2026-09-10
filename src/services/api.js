@@ -6,7 +6,11 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("tb_token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
@@ -17,6 +21,7 @@ api.interceptors.response.use(
       localStorage.removeItem("tb_token");
       localStorage.removeItem("tb_user");
     }
+
     return Promise.reject(err);
   }
 );
